@@ -1,4 +1,6 @@
 import { env } from "~/lib/env";
+import type { AccessToken } from "./types";
+import { getAccessToken as retrieveToken, saveAccessToken } from "./store";
 
 const clientId = env.VITE_SPOTIFY_CLIENT_ID;
 const scopes = [
@@ -26,15 +28,19 @@ export async function redirectToSpotifyAuth(): Promise<void> {
 	window.location.href = authUrl.toString();
 }
 
-export async function getAccessToken(code: string): Promise<any> {
+export async function getAccessToken(code: string): Promise<AccessToken> {
 	const codeVerifier = localStorage.getItem("code_verifier");
+
+	if (!codeVerifier) {
+		throw new Error("Code verifier not found in local storage");
+	}
 
 	const body = new URLSearchParams({
 		client_id: clientId,
 		grant_type: "authorization_code",
 		code,
 		redirect_uri: env.VITE_SPOTIFY_REDIRECT_URI,
-		code_verifier: codeVerifier!,
+		code_verifier: codeVerifier,
 	});
 
 	const response = await fetch(`${env.VITE_SPOTIFY_AUTH_BASE_URL}/api/token`, {
@@ -43,16 +49,40 @@ export async function getAccessToken(code: string): Promise<any> {
 		body,
 	});
 
-	return await response.json();
+	return (await response.json()) as AccessToken;
 }
 
-export async function fetchProfile(token: string): Promise<any> {
-	const result = await fetch("https://api.spotify.com/v1/me", {
-		method: "GET",
-		headers: { Authorization: `Bearer ${token}` },
+export async function refreshAccessToken(): Promise<AccessToken> {
+	const refreshToken = retrieveToken()?.refresh_token;
+
+	if (!refreshToken) {
+		throw new Error("Refresh token not available");
+	}
+
+	const body = new URLSearchParams({
+		grant_type: "refresh_token",
+		refresh_token: refreshToken,
+		client_id: clientId,
 	});
 
-	return await result.json();
+	const response = await fetch(`${env.VITE_SPOTIFY_AUTH_BASE_URL}/api/token`, {
+		method: "POST",
+		headers: { "Content-Type": "application/x-www-form-urlencoded" },
+		body,
+	});
+
+	if (!response.ok) {
+		throw new Error(`Failed to refresh token: ${response.statusText}`);
+	}
+
+	const data = (await response.json()) as AccessToken;
+
+	// Update stored tokens
+	if (data.access_token) {
+		saveAccessToken(data);
+	}
+
+	return data;
 }
 
 function generateCodeVerifier(length: number) {
