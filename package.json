@@ -4,7 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsc -b && vite build",
-		"dev": "vite",
+		"dev": "vite ./frontend",
 		"lint": "biome lint --write",
 		"preview": "vite preview"
 	},
@@ -12,11 +12,18 @@
 		"@biomejs/biome": "^2.2.6",
 		"@spotify/web-api-ts-sdk": "^1.2.0",
 		"@t3-oss/env-core": "^0.13.8",
+		"@types/cors": "^2.8.19",
+		"@types/express": "^5.0.3",
+		"cors": "^2.8.5",
+		"dotenv": "^17.2.3",
+		"express": "^5.1.0",
 		"isbot": "^5.1.31",
+		"node-fetch": "^3.3.2",
 		"react": "^19.1.1",
 		"react-dom": "^19.1.1",
 		"vite-plugin-biome": "^1.0.12",
-		"zod": "^4.1.12"
+		"zod": "^4.1.12",
+		"zustand": "^5.0.8"
 	},
 	"devDependencies": {
 		"@tailwindcss/vite": "^4.1.13",
@@ -30,7 +37,7 @@
 	},
 	"pnpm": {
 		"overrides": {
-		"vite": "npm:rolldown-vite@7.1.14"
+			"vite": "npm:rolldown-vite@7.1.14"
 		}
-  	}
+	}
 }
