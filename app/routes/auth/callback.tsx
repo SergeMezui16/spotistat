@@ -1,4 +1,5 @@
 import { getAccessToken } from "~/lib/spotify/auth";
+import { saveAccessToken } from "~/lib/spotify/store";
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 
@@ -11,7 +12,7 @@ export default function Callback() {
 		if (!code) return;
 
 		getAccessToken(code).then((data) => {
-			localStorage.setItem("spotify_access_token", data.access_token);
+			saveAccessToken(data);
 			navigate("/");
 		});
 	}, [params, navigate]);
