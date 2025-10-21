@@ -4,7 +4,8 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsc -b && vite build",
-		"dev": "vite ./frontend",
+		"dev": "vite ./frontend --port 5173",
+		"server": "tsx ./backend/server.ts",
 		"lint": "biome lint --write",
 		"preview": "vite preview"
 	},
