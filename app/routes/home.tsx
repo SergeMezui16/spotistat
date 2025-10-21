@@ -1,6 +1,7 @@
-import type { Route } from "./+types/home";
+import { use } from "react";
+import { getUserProfile } from "~/lib/spotify/api";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
 	return [
 		{ title: "New React Router App" },
 		{ name: "description", content: "Welcome to React Router!" },
@@ -8,5 +9,12 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-	return <div>text</div>;
+	const profile = use(getUserProfile());
+	return (
+		<div>
+			<h1>welcome to spotify</h1>
+			Hello, {profile.display_name}
+			<pre>{JSON.stringify(profile)}</pre>
+		</div>
+	);
 }
