@@ -5,7 +5,7 @@ export default function Dashboard() {
   const {data: albums} = useTopAlbums("long_term");
 
 	return (
-		<div className="p-4">
+		<div className="p-4 flex-1">
 			<h1 className="mb-4 font-bold text-2xl">🎧 Your Top Songs This last 4 Week</h1>
 			<ul>
 				{tracks?.items.map((t, index) => (

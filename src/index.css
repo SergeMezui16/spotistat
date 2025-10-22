@@ -179,6 +179,23 @@
   --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.43);
 }
 
+@theme {
+  @keyframes fade-left {
+    0% {
+      opacity: 0;
+      transform: translateX(4rem);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+@utility animate-fade-left {
+  animation: fade-left 0.3s ease;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

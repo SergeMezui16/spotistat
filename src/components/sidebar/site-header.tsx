@@ -10,14 +10,9 @@ import { Skeleton } from "../ui/skeleton";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Progress } from "@/components/ui/progress";
-import { useEffect, useState } from "react";
-import { Badge } from "../ui/badge";
 
 export function SiteHeader() {
 	const { toggleSidebar } = useSidebar();
@@ -68,6 +63,7 @@ function TrackInfo() {
 	return (
 		<DropdownMenu modal={false}>
 			<DropdownMenuTrigger>
+				{/* <title>{track.item.name} - {track.item.artists[0].name}</title> */}
 				<div className="flex cursor-pointer gap-2 rounded px-2 py-1 hover:bg-secondary">
 					<img
 						src={track.item.album.images[0].url}
