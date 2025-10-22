@@ -17,7 +17,6 @@ const SCOPES = [
 	"user-library-modify",
 	"user-library-read",
 	"user-read-private",
-	"user-personalized",
 ];
 
 export function login() {

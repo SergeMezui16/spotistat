@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App.tsx";
 import { ThemeProvider } from "./providers/theme-provider.tsx";
 import { ErrorBoundary } from "react-error-boundary";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")!).render(
 					<App />
 				</ErrorBoundary>
 			</ThemeProvider>
+			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	</StrictMode>,
 );
