@@ -6,6 +6,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
 	plugins: [tailwindcss(), tsconfigPaths(), biomePlugin()],
 	server: {
-		port: 5173,
-	},
+    proxy: {
+      '/api': 'http://localhost:3000',
+    },
+  },
 });
