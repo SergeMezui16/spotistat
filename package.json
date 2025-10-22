@@ -4,8 +4,8 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsc -b && vite build",
-		"dev": "vite ./frontend --port 5173",
-		"server": "tsx ./backend/server.ts",
+		"dev": "vite",
+		"server": "server.js",
 		"lint": "biome lint --write",
 		"preview": "vite preview"
 	},
@@ -15,6 +15,7 @@
 		"@t3-oss/env-core": "^0.13.8",
 		"@types/cors": "^2.8.19",
 		"@types/express": "^5.0.3",
+		"axios": "^1.12.2",
 		"cors": "^2.8.5",
 		"dotenv": "^17.2.3",
 		"express": "^5.1.0",
