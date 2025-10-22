@@ -6,3 +6,4 @@ export * from "./use-top-albums";
 export * from "./use-mobile";
 export * from "./use-top-artists";
 export * from "./use-profle";
+export * from "./use-current-track";
