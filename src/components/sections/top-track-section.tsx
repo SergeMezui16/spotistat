@@ -35,7 +35,7 @@ function TrackList({
 	const { data } = useTopTracks(timeRange);
 
 	if (!data) {
-		return Array.from({ length: 5 }).map((_, index) => (
+		return Array.from({ length: 20 }).map((_, index) => (
 			// biome-ignore lint/suspicious/noArrayIndexKey: what do you whant from me?
 			<div key={index} className="flex gap-4">
 				<Skeleton className="mb-2 h-20 w-20 rounded" />

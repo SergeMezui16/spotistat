@@ -1,12 +1,12 @@
-import { useTopArtists, useTopTracks } from "@/hooks";
+import { useTopAlbums } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export function TopArtistSection() {
+export function TopAlbumSection() {
 	return (
 		<section className="h-fit flex-1 space-y-4 rounded-xl bg-secondary p-4">
-			<h2 className="font-semibold text-2xl">Your Top Artists</h2>
+			<h2 className="font-semibold text-2xl">Your Top Album</h2>
 			<Tabs defaultValue="short_term">
 				<TabsList>
 					<TabsTrigger value="short_term">Last 4 weeks</TabsTrigger>
@@ -14,25 +14,25 @@ export function TopArtistSection() {
 					<TabsTrigger value="long_term">Last year</TabsTrigger>
 				</TabsList>
 				<TabsContent value="short_term">
-					<ArtistList timeRange="short_term" />
+					<AlbumList timeRange="short_term" />
 				</TabsContent>
 				<TabsContent value="medium_term">
-					<ArtistList timeRange="medium_term" />
+					<AlbumList timeRange="medium_term" />
 				</TabsContent>
 				<TabsContent value="long_term">
-					<ArtistList timeRange="long_term" />
+					<AlbumList timeRange="long_term" />
 				</TabsContent>
 			</Tabs>
 		</section>
 	);
 }
 
-function ArtistList({
+function AlbumList({
 	timeRange,
 }: {
 	timeRange?: "short_term" | "medium_term" | "long_term";
 }) {
-	const { data } = useTopArtists(timeRange);
+	const { data } = useTopAlbums(timeRange);
 
 	if (!data) {
 		return Array.from({ length: 20 }).map((_, index) => (
@@ -49,8 +49,8 @@ function ArtistList({
 
 	return (
 		<div className="mt-2 animate-fade-left">
-			{data.items.map((artist, index) => (
-				<div key={artist.id} className="mb-2 flex gap-4">
+			{data.map((album, index) => (
+				<div key={album.id} className="mb-2 flex gap-4">
 					<div className="relative inline-block">
 						<span
 							className={cn(
@@ -63,21 +63,17 @@ function ArtistList({
 							{index + 1}
 						</span>
 						<img
-							className="rounded-xs aspect-square object-cover"
-							src={artist.images[0].url}
-							alt={artist.name}
+							className="aspect-square rounded-xs object-cover"
+							src={album.image}
+							alt={album.name}
 							width={70}
 							height={70}
 						/>
 					</div>
 					<div className="">
-						<p className="font-semibold text-xl">{artist.name}</p>
+						<p className="font-semibold text-xl">{album.name}</p>
 						<p className="text-muted-foreground text-sm">
-							{artist.genres.length === 0
-								? "Unknown Genre"
-								: artist.genres
-										.map((g) => g.charAt(0).toUpperCase() + g.slice(1))
-										.join(", ")}
+							{album.artist} • {album.trackCount} tracks
 						</p>
 					</div>
 				</div>

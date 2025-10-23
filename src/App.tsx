@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/sidebar/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { TopTrackSection } from "./components/sections/top-track-section";
 import { TopArtistSection } from "./components/sections/top-artist-section";
+import { TopAlbumSection } from "./components/sections/top-album-section";
 
 function App() {
 	const { accessToken, isLoading, login, error, refreshToken } = useAuth();
@@ -29,7 +30,7 @@ function App() {
 						<AppSidebar variant="inset" />
 						<SidebarInset>
 							<div className="flex h-fit space-x-4 p-4">
-								<Dashboard />
+								<TopAlbumSection />
 								<TopTrackSection />
 								<TopArtistSection />
 							</div>
