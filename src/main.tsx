@@ -6,28 +6,20 @@ import App from "./App.tsx";
 import { ThemeProvider } from "./providers/theme-provider.tsx";
 import { ErrorBoundary } from "react-error-boundary";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ErrorFallback } from "./components/molecules/error-fallback.tsx";
 
 const queryClient = new QueryClient();
 
 // biome-ignore lint/style/noNonNullAssertion: no need to check for null here
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<QueryClientProvider client={queryClient}>
-			<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-				<ErrorBoundary FallbackComponent={SpotifyErrorFallback}>
+		<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+			<QueryClientProvider client={queryClient}>
+				<ErrorBoundary FallbackComponent={ErrorFallback}>
 					<App />
 				</ErrorBoundary>
-			</ThemeProvider>
-			<ReactQueryDevtools initialIsOpen={false} />
-		</QueryClientProvider>
+				<ReactQueryDevtools initialIsOpen={false} />
+			</QueryClientProvider>
+		</ThemeProvider>
 	</StrictMode>,
 );
-
-function SpotifyErrorFallback({ error }: { error: Error }) {
-	return (
-		<div className="rounded bg-red-100 p-4 text-red-800">
-			<h2>⚠️ Spotify Error</h2>
-			<p>{error.message}</p>
-		</div>
-	);
-}
