@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSpotify } from ".";
+import type { TimeRange, TopCount } from "@/types";
 
-export function useTopTracks(timeRange: "short_term" | "medium_term" | "long_term" = "short_term") {
+export function useTopTracks(timeRange: TimeRange = "short_term", limit: TopCount = 10) {
 	const spotify = useSpotify();
 
 	return useQuery({
-		queryKey: ["topTracks", timeRange],
+		queryKey: ["topTracks", timeRange, limit],
 		queryFn: async () => {
-			return await spotify.currentUser.topItems("tracks", timeRange, 20);
+			return await spotify.currentUser.topItems("tracks", timeRange, limit);
 		},
 		staleTime: 1000 * 60 * 5,
 	});
