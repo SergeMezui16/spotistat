@@ -1,8 +1,6 @@
 import {
 	BadgeCheck,
-	Bell,
 	ChevronsUpDown,
-	CreditCard,
 	FlagIcon,
 	LogOut,
 	Sparkles,

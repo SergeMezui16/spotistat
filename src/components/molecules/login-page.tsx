@@ -24,7 +24,7 @@ export const LoginPage = ({
 					</EmptyMedia>
 					<EmptyTitle>You're not logged.</EmptyTitle>
 					<EmptyDescription>
-						Spoty Top need you to login to your Spotify account and the
+						Spotify Top need you to login to your Spotify account and the
 						authorization to get data from your taste. Click on the button
 						bellow to start!
 					</EmptyDescription>
