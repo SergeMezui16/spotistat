@@ -7,3 +7,4 @@ export * from "./use-mobile";
 export * from "./use-top-artists";
 export * from "./use-profle";
 export * from "./use-current-track";
+export * from "./use-filter-top";
