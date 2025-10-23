@@ -1,4 +1,3 @@
-import Dashboard from "@/Dashboard";
 import { useAuth } from "@/hooks/use-auth";
 import { SpotifyProvider } from "./providers/spotify-context";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
