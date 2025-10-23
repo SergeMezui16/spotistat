@@ -29,9 +29,11 @@ export function SiteHeader() {
 					<SidebarIcon />
 				</Button>
 				<Separator orientation="vertical" className="mr-2 h-4" />
-				<TrackInfo />
+				<div className="w-full">
+					<TrackInfo />
+				</div>
 				<div className="flex w-full items-center justify-end gap-2">
-					<SearchForm className=" hidden sm:block" />
+					<SearchForm className="hidden sm:block" />
 					<ModeToggle />
 				</div>
 			</div>

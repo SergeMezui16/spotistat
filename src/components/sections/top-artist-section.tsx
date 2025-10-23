@@ -62,6 +62,7 @@ function ArtistList({
 							{artist.genres.length === 0
 								? "Unknown Genre"
 								: artist.genres
+										.slice(0, 4)
 										.map((g) => capitalize(g))
 										.join(", ")}
 						</p>

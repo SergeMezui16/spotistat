@@ -7,7 +7,7 @@ import {
 	SelectContent,
 	SelectItem,
 } from "../ui/select";
-import { RefreshCcwIcon } from "lucide-react";
+import { InfoIcon, RefreshCcwIcon } from "lucide-react";
 import { ButtonGroup } from "../ui/button-group";
 import { IconButton } from "../ui/icon-button";
 
@@ -34,7 +34,7 @@ export const FilterTopButtonGroup = ({
 				<SelectContent>
 					<SelectItem value="short_term">Last 4 Weeks</SelectItem>
 					<SelectItem value="medium_term">Last 6 Months</SelectItem>
-					<SelectItem value="long_term">All Time</SelectItem>
+					<SelectItem value="long_term">Last year</SelectItem>
 				</SelectContent>
 			</Select>
 			<Select
@@ -61,6 +61,7 @@ export const FilterTopButtonGroup = ({
 					onClick={() => refetch()}
 				/>
 			)}
+			<IconButton className="cursor-help" tooltip="The range take the last period from now back the actual last period." icon={InfoIcon} />
 		</ButtonGroup>
 	);
 };
