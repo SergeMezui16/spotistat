@@ -30,8 +30,10 @@ export function SiteHeader() {
 				</Button>
 				<Separator orientation="vertical" className="mr-2 h-4" />
 				<TrackInfo />
-				<SearchForm className="w-full sm:ml-auto sm:w-auto" />
-				<ModeToggle />
+				<div className="flex w-full items-center justify-end gap-2">
+					<SearchForm className=" hidden sm:block" />
+					<ModeToggle />
+				</div>
 			</div>
 		</header>
 	);
@@ -63,7 +65,6 @@ function TrackInfo() {
 	return (
 		<DropdownMenu modal={false}>
 			<DropdownMenuTrigger>
-				{/* <title>{track.item.name} - {track.item.artists[0].name}</title> */}
 				<div className="flex cursor-pointer gap-2 rounded px-2 py-1 hover:bg-secondary">
 					<img
 						src={track.item.album.images[0].url}
