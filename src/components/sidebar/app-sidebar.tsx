@@ -24,6 +24,9 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { TrackInfo } from "../molecules/track-info";
+import { Player } from "../molecules/player";
+import { RecentlyPlayedSection } from "../sections/recently-played-section";
 
 const data = {
 	navMain: [
@@ -162,8 +165,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 					</SidebarMenuItem>
 				</SidebarMenu>
 			</SidebarHeader>
-			<SidebarContent>
-				<NavSecondary items={data.navSecondary} className="mt-auto" />
+			<SidebarContent className="">
+				<div className="overflow-hidden">
+					<RecentlyPlayedSection />
+				</div>
+					<NavSecondary items={data.navSecondary} className="mt-auto" />
 			</SidebarContent>
 			<SidebarFooter>
 				<NavUser />
