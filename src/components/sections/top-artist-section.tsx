@@ -11,6 +11,7 @@ import { EllipsisIcon } from "lucide-react";
 import { TopImage } from "../molecules/top-image";
 import { TopList } from "../molecules/top-list";
 import { FilterTopButtonGroup } from "../molecules/filter-top-button-group";
+import { capitalize } from "@/lib/string";
 
 export function TopArtistSection() {
 	const filter = useFilterTop();
@@ -61,7 +62,7 @@ function ArtistList({
 							{artist.genres.length === 0
 								? "Unknown Genre"
 								: artist.genres
-										.map((g) => g.charAt(0).toUpperCase() + g.slice(1))
+										.map((g) => capitalize(g))
 										.join(", ")}
 						</p>
 					</div>

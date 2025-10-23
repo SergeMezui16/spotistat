@@ -6,7 +6,6 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { TopTrackSection } from "./components/sections/top-track-section";
 import { TopArtistSection } from "./components/sections/top-artist-section";
 import { TopAlbumSection } from "./components/sections/top-album-section";
-import { Button } from "./components/ui/button";
 import { LoginPage } from "./components/molecules/login-page";
 import { GlobalLoader } from "./components/molecules/global-loader";
 
@@ -18,7 +17,7 @@ function App() {
 	if (isLoading) {
 		return <GlobalLoader />;
 	}
-	
+
 	if (!accessToken || !refreshToken) return <LoginPage login={login} />;
 
 	return (

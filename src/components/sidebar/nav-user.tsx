@@ -3,6 +3,7 @@ import {
 	Bell,
 	ChevronsUpDown,
 	CreditCard,
+	FlagIcon,
 	LogOut,
 	Sparkles,
 } from "lucide-react";
@@ -25,6 +26,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useAuth, useProfile } from "@/hooks";
 import { Skeleton } from "../ui/skeleton";
+import { capitalize, isoToEmoji, isoToName } from "@/lib/string";
 
 export function NavUser() {
 	const { isMobile } = useSidebar();
@@ -83,22 +85,18 @@ export function NavUser() {
 						<DropdownMenuGroup>
 							<DropdownMenuItem>
 								<Sparkles />
-								Upgrade to Pro
+								{capitalize(profile.product)}
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
 						<DropdownMenuGroup>
 							<DropdownMenuItem>
 								<BadgeCheck />
-								Account
+								{profile.followers.total} Friends
 							</DropdownMenuItem>
 							<DropdownMenuItem>
-								<CreditCard />
-								Billing
-							</DropdownMenuItem>
-							<DropdownMenuItem>
-								<Bell />
-								Notifications
+								<FlagIcon />
+								{isoToEmoji(profile.country)}  {isoToName(profile.country)}
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
