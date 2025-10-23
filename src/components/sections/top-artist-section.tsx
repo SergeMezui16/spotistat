@@ -22,7 +22,7 @@ export function TopArtistSection() {
 	return (
 		<Card className="h-fit flex-1">
 			<CardHeader>
-				<CardTitle>Your Top Artists</CardTitle>
+				<CardTitle>Top Artists</CardTitle>
 				<CardDescription>
 					Your top artist calcuted from spotify.
 				</CardDescription>

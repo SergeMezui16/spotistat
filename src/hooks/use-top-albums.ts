@@ -5,8 +5,7 @@ import type {
 	SpotifyApi,
 	Track,
 } from "@spotify/web-api-ts-sdk";
-
-type TimeRange = "short_term" | "medium_term" | "long_term";
+import type { TimeRange, TopCount } from "@/types";
 
 export interface TopAlbum {
 	id: string;
@@ -17,13 +16,13 @@ export interface TopAlbum {
 	trackCount: number;
 }
 
-export function useTopAlbums(timeRange: TimeRange = "short_term") {
+export function useTopAlbums(timeRange: TimeRange = "short_term", limit: TopCount = 10) {
 	const spotify = useSpotify();
 
 	return useQuery({
-		queryKey: ["topAlbums", timeRange],
+		queryKey: ["topAlbums", timeRange, limit],
 		queryFn: async () => {
-			return await getTopAlbumsLinearDecay(spotify, timeRange);
+			return await getTopAlbumsLinearDecay(spotify, timeRange, limit);
 		},
 		staleTime: 1000 * 60 * 5, // 5 minutes
 	});
@@ -62,6 +61,7 @@ export async function getTopAlbumCount(
 			if (!albumMap.has(album.id)) {
 				albumMap.set(album.id, { album, count: 1 });
 			} else {
+				// biome-ignore lint/style/noNonNullAssertion: Siaa
 				albumMap.get(album.id)!.count += 1;
 			}
 		}
@@ -88,6 +88,7 @@ export async function getTopAlbumCount(
 export async function getTopAlbumsLinearDecay(
 	sdk: SpotifyApi,
 	timeRange: TimeRange,
+	limitAlbum: TopCount
 ): Promise<TopAlbum[]> {
 	const limit = 50;
 	const maxTracks = 300;
@@ -112,7 +113,6 @@ export async function getTopAlbumsLinearDecay(
 	// Weight function (linear decay)
 	const rankWeight = (rank: number) => maxTracks + 1 - rank;
 
-	// Aggregate scores by album
 	const albumScores = new Map<
 		string,
 		{
@@ -141,17 +141,16 @@ export async function getTopAlbumsLinearDecay(
 			});
 		}
 
+		// biome-ignore lint/style/noNonNullAssertion: CALMA
 		const album = albumScores.get(albumId)!;
 		album.totalScore += score;
 		album.trackCount += 1;
 	});
 
-	// Normalize by track count (less penalty than direct division)
 	for (const album of albumScores.values()) {
 		album.totalScore = album.totalScore / Math.sqrt(album.trackCount);
 	}
 
-	// Sort and map to result structure
 	const topAlbums: TopAlbum[] = Array.from(albumScores.entries())
 		.map(([id, album]) => ({
 			id,
@@ -162,7 +161,7 @@ export async function getTopAlbumsLinearDecay(
 			trackCount: album.trackCount,
 		}))
 		.sort((a, b) => b.score - a.score)
-		.slice(0, 20);
+		.slice(0, limitAlbum);
 
 	return topAlbums;
 }
