@@ -26,7 +26,7 @@ function App() {
 				<SidebarProvider className="flex flex-col">
 					<SiteHeader />
 					<div className="flex flex-1">
-						<AppSidebar variant="inset" />
+						<AppSidebar variant="sidebar" />
 						<SidebarInset>
 							<div className="flex h-fit flex-col gap-4 p-4 lg:flex-row">
 								<TopAlbumSection />

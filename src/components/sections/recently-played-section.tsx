@@ -1,6 +1,5 @@
 import { useRecentlyPlayed } from "@/hooks/use-recently-played";
 import { Player } from "../molecules/player";
-import { Separator } from "../ui/separator";
 import {format} from "timeago.js"
 
 export const RecentlyPlayedSection = () => {
@@ -8,13 +7,12 @@ export const RecentlyPlayedSection = () => {
 	return (
 		<div className="my-4 flex h-full flex-col">
 			<Player />
-			<Separator />
-			<div className="flex h-full flex-col gap-2 overflow-scroll scroll-smooth pt-1 pb-4">
+			<div className="flex h-full flex-col gap-2 overflow-scroll scroll-smooth border-t pt-1 pb-4">
 				{tracks?.items.map(({ track, played_at }) => {
 					return (
-						<div key={played_at} className="flex gap-2">
+						<div key={played_at} className="flex gap-2 px-1">
 							<img
-								className="h-12 w-12"
+								className="h-12 w-12 rounded"
 								src={track.album.images[0].url}
 								alt={track.album.name}
 							/>

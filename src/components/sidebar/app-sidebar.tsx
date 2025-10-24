@@ -138,7 +138,7 @@ const data = {
 			name: "Sales & Marketing",
 			url: "#",
 			icon: PieChart,
-		}
+		},
 	],
 };
 
@@ -158,18 +158,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 								</div>
 								<div className="grid flex-1 text-left text-sm leading-tight">
 									<span className="truncate font-medium">Spotify Top</span>
-									<span className="truncate text-xs">Explore your Spotify top</span>
+									<span className="truncate text-xs">
+										Explore your Spotify top
+									</span>
 								</div>
 							</span>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 				</SidebarMenu>
 			</SidebarHeader>
-			<SidebarContent className="">
+			<SidebarContent className="border-t">
 				<div className="overflow-hidden">
 					<RecentlyPlayedSection />
 				</div>
-					<NavSecondary items={data.navSecondary} className="mt-auto" />
+				<NavSecondary items={data.navSecondary} className="mt-auto" />
 			</SidebarContent>
 			<SidebarFooter>
 				<NavUser />
