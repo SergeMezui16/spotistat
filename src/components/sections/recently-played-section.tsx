@@ -1,16 +1,26 @@
 import { Player } from "../molecules/player";
 import { useQueueTracks } from "@/hooks";
 import type { Episode, Track } from "@spotify/web-api-ts-sdk";
+import { LayersIcon } from "lucide-react";
+import {
+	Empty,
+	EmptyHeader,
+	EmptyMedia,
+	EmptyTitle,
+	EmptyDescription,
+	EmptyContent,
+} from "../ui/empty";
 
 export const RecentlyPlayedSection = () => {
 	const { data: tracks } = useQueueTracks();
+
 	return (
 		<div className="my-4 flex h-full flex-col">
 			<Player />
 			<div className="flex h-full flex-col gap-2 overflow-scroll scroll-smooth border-t pt-1 pb-4">
-				<h3 className="pl-4 text-lg text-primary-foreground">
+				{tracks?.queue.length !== 0 && <h3 className="pl-4 text-lg text-primary-foreground">
 					Queue • Next Tracks
-				</h3>
+				</h3>}
 				{tracks?.queue.map((q) => {
 					if (q.type === "track") {
 						return <TrackView key={q.id} track={q as Track} />;
@@ -18,6 +28,21 @@ export const RecentlyPlayedSection = () => {
 
 					return <EpisodeView key={q.id} episode={q as Episode} />;
 				})}
+
+				{tracks?.queue.length === 0 && (
+					<Empty>
+						<EmptyHeader>
+							<EmptyMedia variant="icon">
+								<LayersIcon />
+							</EmptyMedia>
+							<EmptyTitle>Your track queue is empty.</EmptyTitle>
+							<EmptyDescription>
+								Open spotify and start listening music.
+							</EmptyDescription>
+						</EmptyHeader>
+						<EmptyContent></EmptyContent>
+					</Empty>
+				)}
 			</div>
 		</div>
 	);

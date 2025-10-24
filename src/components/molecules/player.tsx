@@ -45,6 +45,7 @@ export const Player = () => {
 
 	return (
 		<div className="flex max-w-sm flex-col gap-2 p-2">
+			<title>{`${track.item.name} • ${track.item.artists.map((a) => a.name).join(", ")}`}</title>
 			<div className="mx-auto flex justify-center">
 				<img
 					src={track.item.album.images[0].url}
