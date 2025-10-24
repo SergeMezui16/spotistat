@@ -20,7 +20,7 @@ import { useProfile } from "@/hooks";
 
 export const GreetingsSection = () => {
 	return (
-		<div className="flex gap-4">
+		<div className="flex flex-col gap-4 sm:flex-row">
 			<Greetings />
 			<RecentlyPlayedChart />
 		</div>
@@ -81,7 +81,7 @@ export function RecentlyPlayedChart() {
 				<CardDescription>Your listening history!</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<ChartContainer className="max-h-[200px] w-full" config={chartConfig}>
+				<ChartContainer className="max-h-[250px] w-full" config={chartConfig}>
 					<BarChart
 						accessibilityLayer
 						data={tracks?.items.map(({ track, played_at }) => ({
