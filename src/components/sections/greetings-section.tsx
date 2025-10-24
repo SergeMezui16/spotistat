@@ -2,11 +2,9 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { PROJECT_NAME } from "@/lib/constant";
 
 import { Bar, BarChart, CartesianGrid, Rectangle, XAxis } from "recharts";
 import {
@@ -17,6 +15,8 @@ import {
 
 import { useRecentlyPlayed } from "@/hooks/use-recently-played";
 import { timeAgo } from "@/lib/string";
+import { motion } from "motion/react";
+import { useProfile } from "@/hooks";
 
 export const GreetingsSection = () => {
 	return (
@@ -28,19 +28,39 @@ export const GreetingsSection = () => {
 };
 
 export const Greetings = () => {
+	const profile = useProfile();
 	return (
-		<Card className="flex-2">
-			<CardHeader>
-				<CardTitle className="text-3xl">Hello Serge Mezui 👋</CardTitle>
-				<CardDescription>Welcome (back) to {PROJECT_NAME}!</CardDescription>
-			</CardHeader>
-			<CardContent>
-				<div className=""></div>
-			</CardContent>
-			<CardFooter>
-				<p>Enjoy!</p>
-			</CardFooter>
-		</Card>
+		<motion.div
+			initial={{ opacity: 0, scale: 0.9 }}
+			animate={{ opacity: 1, scale: 1 }}
+			transition={{ duration: 0.6 }}
+			className="relative mx-auto max-w-lg flex-2 overflow-hidden rounded-lg bg-linear-to-br from-[#1DB954] to-background p-8 text-center shadow-xl backdrop-brightness-75"
+		>
+			<img
+				src="/wave-bg.svg"
+				alt="Music wave"
+				className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-30"
+			/>
+
+			<div className="relative z-10 flex flex-col items-center">
+				<motion.img
+					src="/welcome.svg"
+					alt="Welcome"
+					className="h-36 w-36 drop-shadow-lg"
+					initial={{ rotate: -10, opacity: 0 }}
+					animate={{ rotate: 0, opacity: 1 }}
+					transition={{ type: "spring", stiffness: 80, delay: 0.2 }}
+				/>
+				<h1 className="mb-3 font-extrabold text-3xl sm:text-4xl">
+					Hello {profile?.display_name}. 👋
+				</h1>
+				<p className="mb-6 max-w-md text-secondary-foreground text-sm leading-relaxed sm:text-base">
+					Dive into your personal music story — your top songs, artists, and
+					albums. Built with ❤️ using Spotify’s API to help you rediscover what
+					you love.
+				</p>
+			</div>
+		</motion.div>
 	);
 };
 
