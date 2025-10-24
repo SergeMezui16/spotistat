@@ -8,6 +8,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { TrackInfo } from "../molecules/track-info";
 import type { ComponentProps } from "react";
 import { PROJECT_REPOSITORY_LINK } from "@/lib/constant";
+import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
 	const { toggleSidebar } = useSidebar();
@@ -46,8 +47,9 @@ export const GithubButton = () => {
 		</Button>
 	);
 };
-const GithubIcon = ({ ...rest }: ComponentProps<"svg">) => (
+const GithubIcon = ({ className, ...rest }: ComponentProps<"svg">) => (
 	<svg
+		className={cn("fill-secondary-foreground", className)}
 		role="img"
 		viewBox="0 0 24 24"
 		xmlns="http://www.w3.org/2000/svg"
