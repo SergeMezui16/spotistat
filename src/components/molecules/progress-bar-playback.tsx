@@ -1,4 +1,4 @@
-import { Progress } from "@radix-ui/react-progress";
+import { Progress } from "../ui/progress";
 
 export function ProgressBarPlayback({
 	progress,
@@ -7,5 +7,5 @@ export function ProgressBarPlayback({
 	progress: number;
 	duration: number;
 }) {
-	return <Progress value={(progress * 100) / duration} className="w-full bg-primary" />;
+	return <Progress value={(progress * 100) / duration} />;
 }

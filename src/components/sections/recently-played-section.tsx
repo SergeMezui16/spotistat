@@ -8,9 +8,10 @@ export const RecentlyPlayedSection = () => {
 		<div className="my-4 flex h-full flex-col">
 			<Player />
 			<div className="flex h-full flex-col gap-2 overflow-scroll scroll-smooth border-t pt-1 pb-4">
+				<h3 className="pl-4 text-lg text-primary-foreground">Recently played</h3>
 				{tracks?.items.map(({ track, played_at }) => {
 					return (
-						<div key={played_at} className="flex gap-2 px-1">
+						<div key={played_at} className="flex gap-2 pl-4">
 							<img
 								className="h-12 w-12 rounded"
 								src={track.album.images[0].url}
