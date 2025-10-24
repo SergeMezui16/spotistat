@@ -1,6 +1,5 @@
 import {
 	Card,
-	CardAction,
 	CardContent,
 	CardDescription,
 	CardFooter,
@@ -9,13 +8,11 @@ import {
 } from "@/components/ui/card";
 import { PROJECT_NAME } from "@/lib/constant";
 
-import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, Rectangle, XAxis } from "recharts";
 import {
 	type ChartConfig,
 	ChartContainer,
 	ChartTooltip,
-	ChartTooltipContent,
 } from "@/components/ui/chart";
 
 import { useRecentlyPlayed } from "@/hooks/use-recently-played";
@@ -25,18 +22,7 @@ export const GreetingsSection = () => {
 	return (
 		<div className="flex gap-4">
 			<Greetings />
-
-			{/* <Card className="flex-3">
-				<CardHeader>
-					<CardTitle className="text-3xl">Recently Played</CardTitle>
-					<CardDescription>Your listening history!</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<MusicTimeline />
-				</CardContent>
-			</Card> */}
-
-			<ChartBarActive />
+			<RecentlyPlayedChart />
 		</div>
 	);
 };
@@ -65,7 +51,7 @@ const chartConfig = {
 	},
 } satisfies ChartConfig;
 
-export function ChartBarActive() {
+export function RecentlyPlayedChart() {
 	const { data: tracks } = useRecentlyPlayed(50);
 
 	return (
@@ -81,9 +67,9 @@ export function ChartBarActive() {
 						data={tracks?.items.map(({ track, played_at }) => ({
 							name: track.name,
 							duration: track.duration_ms,
-                            image: track.album.images[0].url,
-                            artist: track.artists.map(a => a.name).join(", "),
-                            playedAt: played_at
+							image: track.album.images[0].url,
+							artist: track.artists.map((a) => a.name).join(", "),
+							playedAt: played_at,
 						}))}
 					>
 						<CartesianGrid vertical={false} />
@@ -99,10 +85,16 @@ export function ChartBarActive() {
 								const track = data.payload?.[0]?.payload;
 								return (
 									<div className="flex flex-col rounded border bg-card p-2">
-                                        <img className="rounded" src={track?.image} alt={track?.name} width={90} height={90} />
-                                        <p>{track?.name}</p>
-                                        <p>{track?.artist}</p>
-                                        <p>{track?.playedAt && timeAgo(track.playedAt)}</p>
+										<img
+											className="rounded"
+											src={track?.image}
+											alt={track?.name}
+											width={90}
+											height={90}
+										/>
+										<p>{track?.name}</p>
+										<p>{track?.artist}</p>
+										<p>{track?.playedAt && timeAgo(track.playedAt)}</p>
 									</div>
 								);
 							}}
