@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { login, exchangeCodeForToken, refreshAccessToken } from "@/lib/auth";
 
 interface AuthState {
@@ -22,6 +22,7 @@ export function useAuth(): AuthState {
 	const [isLoading, setIsLoading] = useState(true);
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const codeHandledRef = useRef(false);
 
 	const handleLogin = useCallback(() => {
 		login();
@@ -59,7 +60,10 @@ export function useAuth(): AuthState {
 				const params = new URLSearchParams(window.location.search);
 				const code = params.get("code");
 
-				if (code) {
+				if (code && !codeHandledRef.current) {
+					codeHandledRef.current = true;
+					window.history.replaceState({}, "", "/");
+
 					const data = await exchangeCodeForToken(code);
 					if (data.access_token && data.refresh_token) {
 						setAccessToken(data.access_token);
@@ -68,10 +72,10 @@ export function useAuth(): AuthState {
 					} else {
 						throw new Error("Invalid token response");
 					}
-
-					window.history.replaceState({}, "", "/");
 				} else if (refreshToken) {
 					await doRefresh();
+				} else {
+					setIsLoading(false);
 				}
 			} catch (err: any) {
 				setError(err.message);
