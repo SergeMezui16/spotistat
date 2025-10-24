@@ -8,6 +8,8 @@ import { TopArtistSection } from "./components/sections/top-artist-section";
 import { TopAlbumSection } from "./components/sections/top-album-section";
 import { LoginPage } from "./components/molecules/login-page";
 import { GlobalLoader } from "./components/molecules/global-loader";
+import { BubbleBackground } from "./components/ui/bubble-background";
+import { GreetingsSection } from "./components/sections/greetings-section";
 
 function App() {
 	const { accessToken, isLoading, login, error, refreshToken } = useAuth();
@@ -28,11 +30,18 @@ function App() {
 					<div className="flex flex-1">
 						<AppSidebar variant="sidebar" />
 						<SidebarInset>
-							<div className="flex h-fit flex-col gap-4 p-4 lg:flex-row">
-								<TopAlbumSection />
-								<TopTrackSection />
-								<TopArtistSection />
-							</div>
+							<BubbleBackground interactive>
+								<div className="z-50 flex flex-col gap-4 p-4 backdrop-blur-3xl">
+									<div className="">
+										<GreetingsSection />
+									</div>
+									<div className="flex h-fit flex-col gap-4 lg:flex-row">
+										<TopAlbumSection />
+										<TopTrackSection />
+										<TopArtistSection />
+									</div>
+								</div>
+							</BubbleBackground>
 						</SidebarInset>
 					</div>
 				</SidebarProvider>

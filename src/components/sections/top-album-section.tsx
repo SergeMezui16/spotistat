@@ -59,8 +59,9 @@ function AlbumList({
 					<div className="">
 						<p className="font-semibold text-xl">{album.name}</p>
 						<p className="text-muted-foreground text-sm">
-							{album.artist} • {album.trackCount} tracks
+							{album.artist}
 						</p>
+						<p className="text-muted-foreground text-xs">{album.trackCount} tracks</p>
 					</div>
 				</div>
 			))}

@@ -1,3 +1,5 @@
+import { format } from "timeago.js";
+
 export const capitalize = (word: string) => {
 	return word.charAt(0).toUpperCase() + word.slice(1);
 };
@@ -11,5 +13,9 @@ export const isoToEmoji = (code: string) => {
 };
 
 export const isoToName = (code: string) => {
-	return new Intl.DisplayNames(['en'], { type: "region" }).of(code);
+	return new Intl.DisplayNames(["en"], { type: "region" }).of(code);
+};
+
+export const timeAgo = (time: string) => {
+	return format(time, "en");
 };

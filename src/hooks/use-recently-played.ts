@@ -6,7 +6,7 @@ export const useRecentlyPlayed = (limit: TopCount = 10) => {
 	const spotify = useSpotify();
 
 	return useQuery({
-		queryKey: ["recentlyPlayed"],
+		queryKey: ["recentlyPlayed", limit],
 		queryFn: async () => {
 			return await spotify.player.getRecentlyPlayedTracks(limit);
 		},
