@@ -20,7 +20,7 @@ import { useProfile } from "@/hooks";
 
 export const GreetingsSection = () => {
 	return (
-		<div className="flex flex-col gap-4 sm:flex-row">
+		<div className="flex flex-col gap-4 lg:flex-row">
 			<Greetings />
 			<RecentlyPlayedChart />
 		</div>
@@ -34,7 +34,7 @@ export const Greetings = () => {
 			initial={{ opacity: 0, scale: 0.9 }}
 			animate={{ opacity: 1, scale: 1 }}
 			transition={{ duration: 0.6 }}
-			className="relative mx-auto max-w-lg flex-2 overflow-hidden rounded-lg bg-linear-to-br from-[#1DB954] to-background p-8 text-center shadow-xl backdrop-brightness-75"
+			className="relative mx-auto w-full flex-1 overflow-hidden rounded-lg bg-linear-to-br from-[#1DB954] to-background p-8 text-center shadow-xl backdrop-brightness-75"
 		>
 			<img
 				src="/wave-bg.svg"

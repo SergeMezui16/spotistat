@@ -1,5 +1,6 @@
-import { useCurrentTrack } from "@/hooks";
+import { useCurrentTrack, useIsMobile } from "@/hooks";
 import { Skeleton } from "../ui/skeleton";
+import { MarqueeText } from "../ui/marquee-text";
 
 export function TrackInfo() {
 	const { data: track, isLoading } = useCurrentTrack();
@@ -25,22 +26,32 @@ export function TrackInfo() {
 	}
 
 	return (
-		<div className="flex cursor-pointer gap-2 rounded px-2 py-1">
+		<div className="flex w-full cursor-pointer items-center gap-2 rounded bg-amber-10 px-2 py-1">
 			<img
 				src={track.item.album.images[0].url}
-				alt=""
+				alt={track.item.name}
 				width={40}
 				height={40}
 				className="rounded"
 			/>
-			<div className="flex flex-col">
-				<span className="text-start font-medium text-sm">
-					{track.item.name}
+			<div className="flex w-full min-w-0 flex-col">
+				<span className="text-nowrap text-start">
+					<Slicer text={track.item.name} />
 				</span>
-				<span className="text-start text-muted-foreground text-xs">
-					{track.item.artists.map((a) => a.name).join(", ")}
+				<span className="text-nowrap text-start text-muted-foreground text-xs">
+					<Slicer text={track.item.artists.map((a) => a.name).join(", ")} />
 				</span>
 			</div>
 		</div>
 	);
+}
+
+const Slicer = ({text}:{text: string}) => {
+	const isMobile = useIsMobile();
+
+	if (!isMobile) return text;
+
+	if (text.length <= 10) return text;
+
+	return `${text.slice(0, 10)}...`;
 }
