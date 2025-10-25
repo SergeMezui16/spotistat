@@ -1,4 +1,3 @@
-import { useProfile } from "@/hooks";
 import { SpotifyProvider } from "@/providers/spotify-context";
 import { AppSidebar } from "../sidebar/app-sidebar";
 import { SiteHeader } from "../sidebar/site-header";

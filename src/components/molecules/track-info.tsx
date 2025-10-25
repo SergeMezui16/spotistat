@@ -1,6 +1,5 @@
 import { useCurrentTrack, useIsMobile } from "@/hooks";
 import { Skeleton } from "../ui/skeleton";
-import { MarqueeText } from "../ui/marquee-text";
 
 export function TrackInfo() {
 	const { data: track, isLoading } = useCurrentTrack();

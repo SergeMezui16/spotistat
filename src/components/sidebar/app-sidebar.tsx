@@ -11,8 +11,6 @@ import {
 	SquareTerminal,
 } from "lucide-react";
 
-import { NavMain } from "@/components/sidebar/nav-main";
-import { NavProjects } from "@/components/sidebar/nav-projects";
 import { NavSecondary } from "@/components/sidebar/nav-secondary";
 import { NavUser } from "@/components/sidebar/nav-user";
 import {
@@ -24,8 +22,6 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { TrackInfo } from "../molecules/track-info";
-import { Player } from "../molecules/player";
 import { RecentlyPlayedSection } from "../sections/recently-played-section";
 
 const data = {
