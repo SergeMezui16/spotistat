@@ -1,15 +1,23 @@
 import { useAuth } from "@/hooks/use-auth";
-import Dashboard from "@/Dashboard";
+import { GlobalLoader } from "./components/molecules/global-loader";
+import { MainContent } from "./components/sections/main-content";
+import { LoginPage } from "./components/molecules/login-page";
 
 function App() {
-  const { accessToken, isLoading, login, error } = useAuth();
+	const { accessToken, isLoading, isRefreshing, login, error, refreshToken } =
+		useAuth();
 
-  if (isLoading) return <p>Loading authentication...</p>;
-  if (error) return <p>❌ {error}</p>;
+	if (error) throw error;
 
-  if (!accessToken) return <button type="button" onClick={login}>Login with Spotify</button>;
+	if (isLoading || isRefreshing || (!!refreshToken && !accessToken)) {
+		return <GlobalLoader />;
+	}
 
-  return <Dashboard accessToken={accessToken} />;
+	if (!accessToken || !refreshToken) {
+		return <LoginPage login={login} />;
+	}
+
+	return <MainContent accessToken={accessToken} refreshToken={refreshToken} />;
 }
 
 export default App;

@@ -1,0 +1,74 @@
+import { useFilterTop, useTopArtists } from "@/hooks";
+import {
+	Card,
+	CardAction,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
+import { EllipsisIcon } from "lucide-react";
+import { TopImage } from "../molecules/top-image";
+import { TopList } from "../molecules/top-list";
+import { FilterTopButtonGroup } from "../molecules/filter-top-button-group";
+import { capitalize } from "@/lib/string";
+
+export function TopArtistSection() {
+	const filter = useFilterTop();
+	const { data, isFetching, refetch } = useTopArtists(
+		filter.timeRange,
+		filter.top,
+	);
+
+	return (
+		<Card className="h-fit flex-1">
+			<CardHeader>
+				<CardTitle>Top Artists</CardTitle>
+				<CardDescription>
+					Your top artist calcuted from spotify.
+				</CardDescription>
+				<CardAction>
+					<EllipsisIcon />
+				</CardAction>
+			</CardHeader>
+			<CardContent>
+				<FilterTopButtonGroup
+					{...filter}
+					refetch={refetch}
+					isFetching={isFetching}
+				/>
+				<ArtistList data={data} />
+			</CardContent>
+		</Card>
+	);
+}
+function ArtistList({
+	data,
+}: {
+	data?: ReturnType<typeof useTopArtists>["data"];
+}) {
+	return (
+		<TopList isLoading={!data}>
+			{data?.items.map((artist, index) => (
+				<div key={artist.id} className="mb-2 flex gap-4">
+					<TopImage
+						rank={index + 1}
+						imageAlt={artist.name}
+						imageUrl={artist.images[0].url}
+					/>
+					<div className="">
+						<p className="font-semibold text-xl">{artist.name}</p>
+						<p className="text-muted-foreground text-sm">
+							{artist.genres.length === 0
+								? "Unknown Genre"
+								: artist.genres
+										.slice(0, 4)
+										.map((g) => capitalize(g))
+										.join(", ")}
+						</p>
+					</div>
+				</div>
+			))}
+		</TopList>
+	);
+}
