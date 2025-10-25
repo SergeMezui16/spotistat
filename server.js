@@ -1,22 +1,16 @@
 import express from "express";
 import cors from "cors";
 import axios from "axios";
-import serverless from "serverless-http";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-console.log(process.env.SPOTIFY_CLIENT_ID);
-console.log(process.env.SPOTIFY_CLIENT_SECRET);
-
 app.use(
 	cors({
-		origin: [
-			"http://localhost:5173", // Vite dev server
-			"http://127.0.0.1:5173", // Vite dev server
-			"http://localhost:8888", // Netlify dev server
-			"http://127.0.0.1:8888"
-		],
+		origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
 		credentials: true,
 	}),
 );
