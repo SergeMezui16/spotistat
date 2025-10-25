@@ -8,4 +8,6 @@
 
 [] refactor server.js to use more env variable and refactor variables
 
+[] add the pwa configuration
+
 [] deploy
