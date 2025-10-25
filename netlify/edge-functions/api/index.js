@@ -1,16 +1,24 @@
 import express from "express";
 import cors from "cors";
 import axios from "axios";
-import dotenv from "dotenv";
-
-dotenv.config();
+import serverless from "serverless-http";
 
 const app = express();
 app.use(express.json());
 
+console.log(process.env.SPOTIFY_CLIENT_ID);
+console.log(process.env.SPOTIFY_CLIENT_SECRET);
+
 app.use(
 	cors({
-		origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+		origin: [
+			"http://localhost:5173", // Vite dev server
+			"http://127.0.0.1:5173", // Vite dev server
+			"http://localhost:8888", // Netlify dev server
+			"http://127.0.0.1:8888",
+			"http://127.0.0.1:3000",
+			"http://localhost:3000",
+		],
 		credentials: true,
 	}),
 );
@@ -19,7 +27,7 @@ const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 // Use Netlify's deploy URL, with a fallback for local development
 const REDIRECT_URI = process.env.URL
-	? `${process.env.URL}/`
+	? `${process.env.URL}`
 	: "http://127.0.0.1:5173/";
 
 const router = express.Router();
@@ -80,6 +88,4 @@ app.post("/api/auth/refresh", async (req, res) => {
 	}
 });
 
-app.use("/.netlify/functions/api", router);
-
-export const handler = serverless(app);
+app.listen(3000, () => console.log("🚀 Backend running on http://localhost:3000"));
