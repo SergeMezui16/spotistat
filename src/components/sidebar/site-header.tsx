@@ -24,14 +24,16 @@ export function SiteHeader() {
 				>
 					<SidebarIcon />
 				</Button>
-				<Separator orientation="vertical" className="mr-2 h-4" />
-				<div className="w-full">
-					<TrackInfo />
-				</div>
-				<div className="flex w-full items-center justify-end gap-2">
-					<SearchForm className="hidden sm:block" />
-					<ModeToggle />
-					<GithubButton />
+				<Separator orientation="vertical" className="h-4" />
+				<div className="flex flex-1 items-center justify-between">
+					<div className="w-full">
+						<TrackInfo />
+					</div>
+					<div className="flex items-center justify-end gap-2 sm:w-full">
+						<SearchForm className="hidden sm:block" />
+						<ModeToggle />
+						<GithubButton />
+					</div>
 				</div>
 			</div>
 		</header>
