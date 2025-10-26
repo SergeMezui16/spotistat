@@ -28,7 +28,9 @@ app.use(
 );
 
 if (isProduction) {
-	app.use(express.static(path.join(__dirname, "dist")));
+  app.get("(.*)", (req, res) => {
+    res.sendFile(path.join(__dirname, "dist", "index.html"));
+  });
 }
 
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
