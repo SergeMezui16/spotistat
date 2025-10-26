@@ -1,3 +1,5 @@
+import { API_URL } from "./api-config";
+
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 const REDIRECT_URI = import.meta.env.DEV
 	? "http://127.0.0.1:5173/"
@@ -33,7 +35,7 @@ export function login() {
 }
 
 export async function exchangeCodeForToken(code: string) {
-	const res = await fetch("/api/auth/callback", {
+	const res = await fetch(API_URL + "/api/auth/callback", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ code }),
@@ -42,7 +44,7 @@ export async function exchangeCodeForToken(code: string) {
 }
 
 export async function refreshAccessToken(refresh_token: string) {
-	const res = await fetch("/api/auth/refresh", {
+	const res = await fetch(API_URL + "/api/auth/refresh", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ refresh_token }),

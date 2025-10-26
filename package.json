@@ -4,6 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsc -b && vite build",
+        "dev:server": "node server.js",
 		"dev": "vite",
 		"server": "server.js",
 		"lint": "biome lint --write",

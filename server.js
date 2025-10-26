@@ -2,18 +2,34 @@ import express from "express";
 import cors from "cors";
 import axios from "axios";
 import dotenv from "dotenv";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 app.use(express.json());
+
+const isProduction = process.env.NODE_ENV === "production";
+const corsOrigins = isProduction
+	? process.env.FRONTEND_URL
+	: ["http://localhost:5173", "http://127.0.0.1:5173"];
 
 app.use(
 	cors({
-		origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+		origin: corsOrigins,
 		credentials: true,
 	}),
 );
+
+if (isProduction) {
+	app.use(express.static(path.join(__dirname, "dist")));
+}
 
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
@@ -78,4 +94,12 @@ app.post("/api/auth/refresh", async (req, res) => {
 	}
 });
 
-app.listen(3000, () => console.log("🚀 Backend running on http://localhost:3000"));
+if (isProduction) {
+	app.get("*", (req, res) => {
+		res.sendFile(path.join(__dirname, "dist", "index.html"));
+	});
+}
+
+app.listen(PORT, () => {
+	console.log(`Server running on port ${PORT}`);
+});
