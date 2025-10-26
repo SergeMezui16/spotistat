@@ -22,8 +22,6 @@ const REDIRECT_URI = process.env.URL
 	? `${process.env.URL}/`
 	: "http://127.0.0.1:5173/";
 
-const router = express.Router();
-
 app.post("/api/auth/callback", async (req, res) => {
 	const code = req.body.code;
 	if (!code) return res.status(400).json({ error: "Missing code" });
@@ -80,6 +78,4 @@ app.post("/api/auth/refresh", async (req, res) => {
 	}
 });
 
-app.use("/.netlify/functions/api", router);
-
-export const handler = serverless(app);
+app.listen(3000, () => console.log("🚀 Backend running on http://localhost:3000"));
