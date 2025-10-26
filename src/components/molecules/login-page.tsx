@@ -10,12 +10,15 @@ import {
 } from "@/components/ui/empty";
 import { ScanFaceIcon } from "lucide-react";
 import { BubbleBackground } from "../ui/bubble-background";
+import { useWait } from "@/hooks";
 
 export const LoginPage = ({
 	login,
 }: {
 	login: ReturnType<typeof useAuth>["login"];
 }) => {
+	const isWaiting = useWait(5000);
+
 	return (
 		<BubbleBackground interactive>
 			<div className="z-50 flex h-screen w-screen items-center justify-center backdrop-blur-3xl">
@@ -33,7 +36,7 @@ export const LoginPage = ({
 						</EmptyDescription>
 					</EmptyHeader>
 					<EmptyContent>
-						<Button onClick={login}>Login with Spotify</Button>
+						<Button disabled={isWaiting} onClick={login}>{isWaiting ? "Preparing your account..." : "Login with Spotify"}</Button>
 					</EmptyContent>
 				</Empty></div>
 			</div>

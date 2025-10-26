@@ -9,3 +9,5 @@ export * from "./use-profle";
 export * from "./use-current-track";
 export * from "./use-filter-top";
 export * from "./use-queue-tracks";
+export * from "./use-recently-played";
+export * from "./use-wait";
