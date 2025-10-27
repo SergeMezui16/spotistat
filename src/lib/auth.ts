@@ -35,7 +35,7 @@ export function login() {
 }
 
 export async function exchangeCodeForToken(code: string) {
-	const res = await fetch(API_URL + "/api/auth/callback", {
+	const res = await fetch(`${API_URL}/api/auth/callback`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ code }),
@@ -44,7 +44,7 @@ export async function exchangeCodeForToken(code: string) {
 }
 
 export async function refreshAccessToken(refresh_token: string) {
-	const res = await fetch(API_URL + "/api/auth/refresh", {
+	const res = await fetch(`${API_URL}/api/auth/refresh`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ refresh_token }),

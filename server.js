@@ -27,15 +27,6 @@ app.use(
 	}),
 );
 
-if (isProduction) {
-	const distPath = path.join(__dirname, "dist");
-	app.use(express.static(distPath));
-
-	app.use((req, res) => {
-		res.sendFile(path.join(distPath, "index.html"));
-	});
-}
-
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.URL
@@ -97,6 +88,15 @@ app.post("/api/auth/refresh", async (req, res) => {
 		res.status(500).json({ error: "Failed to refresh token" });
 	}
 });
+
+if (isProduction) {
+  const distPath = path.join(__dirname, "dist");
+  app.use(express.static(distPath));
+
+  app.use((req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
+}
 
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
