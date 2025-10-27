@@ -12,6 +12,7 @@ import { TopImage } from "../molecules/top-image";
 import { TopList } from "../molecules/top-list";
 import { FilterTopButtonGroup } from "../molecules/filter-top-button-group";
 import { capitalize } from "@/lib/string";
+import { Slicer } from "../ui/slicer";
 
 export function TopArtistSection() {
 	const filter = useFilterTop();
@@ -54,17 +55,19 @@ function ArtistList({
 					<TopImage
 						rank={index + 1}
 						imageAlt={artist.name}
-						imageUrl={artist.images[0].url}
+						imageUrl={artist.images[0]?.url}
 					/>
 					<div className="">
-						<p className="font-semibold text-xl">{artist.name}</p>
+						<p className="font-semibold text-xl"><Slicer size={30} text={artist.name} /></p>
 						<p className="text-muted-foreground text-sm">
-							{artist.genres.length === 0
-								? "Unknown Genre"
-								: artist.genres
-										.slice(0, 4)
-										.map((g) => capitalize(g))
-										.join(", ")}
+							<Slicer
+								size={30}
+								text={
+									artist.genres.length === 0
+										? "Unknown Genre"
+										: artist.genres.map((g) => capitalize(g)).join(", ")
+								}
+							/>
 						</p>
 					</div>
 				</div>

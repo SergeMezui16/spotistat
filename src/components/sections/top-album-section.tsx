@@ -11,6 +11,7 @@ import {
 	CardAction,
 	CardContent,
 } from "../ui/card";
+import { Slicer } from "../ui/slicer";
 
 export function TopAlbumSection() {
 	const filter = useFilterTop();
@@ -57,11 +58,15 @@ function AlbumList({
 						imageUrl={album.image}
 					/>
 					<div className="">
-						<p className="font-semibold text-xl">{album.name}</p>
-						<p className="text-muted-foreground text-sm">
-							{album.artist}
+						<p className="font-semibold text-xl">
+							<Slicer size={30} text={album.name} />
 						</p>
-						<p className="text-muted-foreground text-xs">{album.trackCount} tracks</p>
+						<p className="text-muted-foreground text-sm">
+							<Slicer size={50} text={album.artist} />
+						</p>
+						<p className="text-muted-foreground text-xs">
+							{album.trackCount} tracks
+						</p>
 					</div>
 				</div>
 			))}

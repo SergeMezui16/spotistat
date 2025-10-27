@@ -11,6 +11,7 @@ import {
 } from "../ui/card";
 import { TopList } from "../molecules/top-list";
 import { TopImage } from "../molecules/top-image";
+import { Slicer } from "../ui/slicer";
 
 export function TopTrackSection() {
 	const filter = useFilterTop();
@@ -51,12 +52,12 @@ function TrackList({
 					<TopImage
 						rank={index + 1}
 						imageAlt={track.album.name}
-						imageUrl={track.album.images[0].url}
+						imageUrl={track.album.images[0]?.url}
 					/>
 					<div className="">
-						<p className="font-semibold">{track.name}</p>
+						<p className="font-semibold"><Slicer size={30} text={track.name} /></p>
 						<p className="text-muted-foreground text-sm">
-							{track.artists.map((artist) => artist.name).join(", ")}
+							<Slicer size={50} text={track.artists.map((artist) => artist.name).join(", ")} />
 						</p>
 					</div>
 				</div>
