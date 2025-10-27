@@ -8,7 +8,7 @@ export const PlayerSection = () => {
 	return (
 		<div className="my-4 flex h-full flex-col">
 			<Player />
-			{profile && profile.type === "premium" && <QueueList />}
+			{profile && profile.product === "premium" && <QueueList />}
 		</div>
 	);
 };
