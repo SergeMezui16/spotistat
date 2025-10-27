@@ -19,3 +19,13 @@ export const isoToName = (code: string) => {
 export const timeAgo = (time: string) => {
 	return format(time, "en");
 };
+
+export const initials = (value?: string): string => {
+  if (!value) return 'IN';
+
+  return value
+    .split(" ")
+    .map(word => word[0].toUpperCase())
+    .join("");
+};
+

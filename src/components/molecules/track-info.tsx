@@ -1,5 +1,6 @@
-import { useCurrentTrack, useIsMobile } from "@/hooks";
+import { useCurrentTrack } from "@/hooks";
 import { Skeleton } from "../ui/skeleton";
+import { Slicer } from "../ui/slicer";
 
 export function TrackInfo() {
 	const { data: track, isLoading } = useCurrentTrack();
@@ -35,22 +36,12 @@ export function TrackInfo() {
 			/>
 			<div className="flex w-full min-w-0 flex-col">
 				<span className="text-nowrap text-start">
-					<Slicer text={track.item.name} />
+					<Slicer mobileOnly={true} text={track.item.name} />
 				</span>
 				<span className="text-nowrap text-start text-muted-foreground text-xs">
-					<Slicer text={track.item.artists.map((a) => a.name).join(", ")} />
+					<Slicer mobileOnly={true} text={track.item.artists.map((a) => a.name).join(", ")} />
 				</span>
 			</div>
 		</div>
 	);
-}
-
-const Slicer = ({text}:{text: string}) => {
-	const isMobile = useIsMobile();
-
-	if (!isMobile) return text;
-
-	if (text.length <= 10) return text;
-
-	return `${text.slice(0, 10)}...`;
 }
