@@ -1,6 +1,3 @@
-import { Player } from "../molecules/player";
-import { useQueueTracks } from "@/hooks";
-import type { Episode, Track } from "@spotify/web-api-ts-sdk";
 import { LayersIcon } from "lucide-react";
 import {
 	Empty,
@@ -10,40 +7,40 @@ import {
 	EmptyDescription,
 	EmptyContent,
 } from "../ui/empty";
+import { useQueueTracks } from "@/hooks";
+import type { Episode, Track } from "@spotify/web-api-ts-sdk";
 
-export const RecentlyPlayedSection = () => {
+export const QueueList = () => {
 	const { data: tracks } = useQueueTracks();
-
 	return (
-		<div className="my-4 flex h-full flex-col">
-			<Player />
-			<div className="flex h-full flex-col gap-2 overflow-scroll scroll-smooth border-t pt-1 pb-4">
-				{tracks?.queue.length !== 0 && <h3 className="pl-4 text-lg text-primary-foreground">
+		<div className="flex h-full flex-col gap-2 overflow-scroll scroll-smooth border-t pt-1 pb-4">
+			{tracks?.queue.length !== 0 && (
+				<h3 className="pl-4 text-lg text-primary-foreground">
 					Queue • Next Tracks
-				</h3>}
-				{tracks?.queue.map((q) => {
-					if (q.type === "track") {
-						return <TrackView key={q.id} track={q as Track} />;
-					}
+				</h3>
+			)}
+			{tracks?.queue.map((q) => {
+				if (q.type === "track") {
+					return <TrackView key={q.id} track={q as Track} />;
+				}
 
-					return <EpisodeView key={q.id} episode={q as Episode} />;
-				})}
+				return <EpisodeView key={q.id} episode={q as Episode} />;
+			})}
 
-				{tracks?.queue.length === 0 && (
-					<Empty>
-						<EmptyHeader>
-							<EmptyMedia variant="icon">
-								<LayersIcon />
-							</EmptyMedia>
-							<EmptyTitle>Your track queue is empty.</EmptyTitle>
-							<EmptyDescription>
-								Open spotify and start listening music.
-							</EmptyDescription>
-						</EmptyHeader>
-						<EmptyContent></EmptyContent>
-					</Empty>
-				)}
-			</div>
+			{tracks?.queue.length === 0 && (
+				<Empty>
+					<EmptyHeader>
+						<EmptyMedia variant="icon">
+							<LayersIcon />
+						</EmptyMedia>
+						<EmptyTitle>Your track queue is empty.</EmptyTitle>
+						<EmptyDescription>
+							Open spotify and start listening music.
+						</EmptyDescription>
+					</EmptyHeader>
+					<EmptyContent></EmptyContent>
+				</Empty>
+			)}
 		</div>
 	);
 };

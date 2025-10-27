@@ -22,7 +22,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { RecentlyPlayedSection } from "../sections/recently-played-section";
+import { PlayerSection } from "../sections/player-section";
 
 const data = {
 	navMain: [
@@ -165,7 +165,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarHeader>
 			<SidebarContent className="border-t">
 				<div className="overflow-hidden">
-					<RecentlyPlayedSection />
+					<PlayerSection />
 				</div>
 				<NavSecondary items={data.navSecondary} className="mt-auto" />
 			</SidebarContent>
