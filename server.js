@@ -54,8 +54,22 @@ app.post("/api/auth/callback", async (req, res) => {
 
 		res.json(response.data);
 	} catch (err) {
-		console.error(err.response?.data || err.message);
-		res.status(500).json({ error: "Failed to exchange code" });
+		console.error({
+			message: err.response?.data || err.message,
+			code,
+			REDIRECT_URI,
+			CLIENT_ID,
+			CLIENT_SECRET,
+		});
+		res
+			.status(500)
+			.json({
+				error: "Failed to exchange code",
+				code,
+				REDIRECT_URI,
+				CLIENT_ID,
+				CLIENT_SECRET,
+			});
 	}
 });
 
@@ -88,12 +102,12 @@ app.post("/api/auth/refresh", async (req, res) => {
 });
 
 if (isProduction) {
-  const distPath = path.join(__dirname, "dist");
-  app.use(express.static(distPath));
+	const distPath = path.join(__dirname, "dist");
+	app.use(express.static(distPath));
 
-  app.use((req, res) => {
-    res.sendFile(path.join(distPath, "index.html"));
-  });
+	app.use((req, res) => {
+		res.sendFile(path.join(distPath, "index.html"));
+	});
 }
 
 app.listen(PORT, () => {
