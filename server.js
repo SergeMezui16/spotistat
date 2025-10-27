@@ -35,6 +35,10 @@ app.post("/api/auth/callback", async (req, res) => {
 	const code = req.body.code;
 	if (!code) return res.status(400).json({ error: "Missing code" });
 
+  if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECT_URI) {
+    return res.status(500).json({ error: "Missing environment variables" });
+  }
+
 	try {
 		const params = new URLSearchParams();
 		params.append("grant_type", "authorization_code");
@@ -54,22 +58,10 @@ app.post("/api/auth/callback", async (req, res) => {
 
 		res.json(response.data);
 	} catch (err) {
-		console.error({
-			message: err.response?.data || err.message,
-			code,
-			REDIRECT_URI,
-			CLIENT_ID,
-			CLIENT_SECRET,
+		console.error(err.response?.data || err.message);
+		res.status(500).json({
+			error: "Failed to exchange code",
 		});
-		res
-			.status(500)
-			.json({
-				error: "Failed to exchange code",
-				code,
-				REDIRECT_URI,
-				CLIENT_ID,
-				CLIENT_SECRET,
-			});
 	}
 });
 
