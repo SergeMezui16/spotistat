@@ -24,7 +24,7 @@ export function useTopAlbums(timeRange: TimeRange = "short_term", limit: TopCoun
 		queryFn: async () => {
 			return await getTopAlbumsLinearDecay(spotify, timeRange, limit);
 		},
-		staleTime: 1000 * 60 * 5, // 5 minutes
+		staleTime: 1000 * 60 * 30, // 30 minutes
 	});
 }
 
