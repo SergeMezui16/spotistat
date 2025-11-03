@@ -1,13 +1,11 @@
 import { useFilterTop, useTopArtists } from "@/hooks";
 import {
 	Card,
-	CardAction,
 	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { EllipsisIcon } from "lucide-react";
 import { TopImage } from "../molecules/top-image";
 import { TopList } from "../molecules/top-list";
 import { FilterTopButtonGroup } from "../molecules/filter-top-button-group";
@@ -28,9 +26,6 @@ export function TopArtistSection() {
 				<CardDescription>
 					Your top artist calcuted from spotify.
 				</CardDescription>
-				<CardAction>
-					<EllipsisIcon />
-				</CardAction>
 			</CardHeader>
 			<CardContent>
 				<FilterTopButtonGroup
