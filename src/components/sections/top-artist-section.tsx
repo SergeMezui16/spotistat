@@ -24,7 +24,7 @@ export function TopArtistSection() {
 			<CardHeader>
 				<CardTitle>Top Artists</CardTitle>
 				<CardDescription>
-					Your top artist calcuted from spotify.
+					Your top artist calculated from spotify.
 				</CardDescription>
 			</CardHeader>
 			<CardContent>

@@ -23,7 +23,7 @@ export function TopAlbumSection() {
 			<CardHeader>
 				<CardTitle>Top Album</CardTitle>
 				<CardDescription>
-					Your top artist calcuted from your last played tracks.
+					Your top artist calculated from your last played tracks.
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
